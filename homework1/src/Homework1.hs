@@ -8,7 +8,7 @@ module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits, validate) 
 [1,2,3,4]
 -}
 toDigits :: Integer -> [Integer]
-toDigits n = rev (toDigitsRev n)
+toDigits = rev . toDigitsRev
 
 {- | Find reversed digit of a number.
 
@@ -28,7 +28,7 @@ toDigitsRev n
 [2,2,6,4]
 -}
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther n = rev (doubleEveryOtherLeftRight (rev n))
+doubleEveryOther = rev . doubleEveryOtherLeftRight . rev
 
 {- | Double every others from left to right.
 
@@ -38,7 +38,7 @@ doubleEveryOther n = rev (doubleEveryOtherLeftRight (rev n))
 doubleEveryOtherLeftRight :: [Integer] -> [Integer]
 doubleEveryOtherLeftRight [] = []
 doubleEveryOtherLeftRight [x] = [x]
-doubleEveryOtherLeftRight (x1 : x2 : xs) = x1 : (x2 * 2) : (doubleEveryOtherLeftRight xs)
+doubleEveryOtherLeftRight (x1 : x2 : xs) = x1 : (x2 * 2) : doubleEveryOtherLeftRight xs
 
 -- Exercise 3
 
