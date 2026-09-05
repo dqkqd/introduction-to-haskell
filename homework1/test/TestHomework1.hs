@@ -1,6 +1,6 @@
 module TestHomework1 (spec) where
 
-import Homework1 (doubleEveryOther, toDigits, toDigitsRev)
+import Homework1 (doubleEveryOther, sumDigits, toDigits, toDigitsRev)
 import Test.Hspec
 
 spec :: Spec
@@ -30,3 +30,10 @@ spec = do
 
     it "doubleEveryOther []" $
       doubleEveryOther [] `shouldBe` []
+
+  describe "Exercise 3" $ do
+    it "sumDigits [16,7,12,5]" $
+      sumDigits [16, 7, 12, 5] `shouldBe` 22
+
+    it "sumDigits []" $
+      sumDigits [] `shouldBe` 0

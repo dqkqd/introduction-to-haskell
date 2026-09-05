@@ -1,4 +1,4 @@
-module Homework1 (toDigits, toDigitsRev, doubleEveryOther) where
+module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits) where
 
 -- Exercise 1
 
@@ -39,6 +39,17 @@ doubleEveryOtherLeftRight :: [Integer] -> [Integer]
 doubleEveryOtherLeftRight [] = []
 doubleEveryOtherLeftRight [x] = [x]
 doubleEveryOtherLeftRight (x1 : x2 : xs) = x1 : (x2 * 2) : (doubleEveryOtherLeftRight xs)
+
+-- Exercise 3
+
+{- | Sum all the digits.
+
+>>> sumDigits [16,7,12,5]
+22
+-}
+sumDigits :: [Integer] -> Integer
+sumDigits [] = 0
+sumDigits (x : xs) = sumDigits xs + sum (toDigitsRev x)
 
 {- | Reverse a list.
 
