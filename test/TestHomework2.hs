@@ -2,9 +2,10 @@ module TestHomework2 (spec) where
 
 import Homework2.Log (
   LogMessage (LogMessage, Unknown),
+  MessageTree (Leaf, Node),
   MessageType (Error, Info, Warning),
  )
-import Homework2.LogAnalysis (parse, parseMessage)
+import Homework2.LogAnalysis (insert, parse, parseMessage)
 import Test.Hspec
 
 spec :: Spec
@@ -40,3 +41,30 @@ spec = do
                    , LogMessage (Error 2) 562 "help help"
                    , Unknown "This is not the right format"
                    ]
+
+  describe "Exercise 2" $ do
+    let tree = Node Leaf (LogMessage Info 10 "ten") Leaf
+
+    it "insert into empty tree wraps the message" $
+      insert (LogMessage Info 1 "one") Leaf
+        `shouldBe` Node Leaf (LogMessage Info 1 "one") Leaf
+
+    it "insert Unknown leaves the tree unchanged" $
+      insert (Unknown "garbage") tree `shouldBe` tree
+
+    it "insert with smaller timestamp goes left" $
+      insert (LogMessage Info 5 "five") tree
+        `shouldBe` Node
+          (Node Leaf (LogMessage Info 5 "five") Leaf)
+          (LogMessage Info 10 "ten")
+          Leaf
+
+    it "insert with greater timestamp goes right" $
+      insert (LogMessage Info 12 "twelve") tree
+        `shouldBe` Node
+          Leaf
+          (LogMessage Info 10 "ten")
+          (Node Leaf (LogMessage Info 12 "twelve") Leaf)
+
+    it "insert with equal timestamp leaves the tree unchanged" $
+      insert (LogMessage Info 10 "duplicate") tree `shouldBe` tree

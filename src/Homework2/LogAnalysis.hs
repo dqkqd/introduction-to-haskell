@@ -1,7 +1,22 @@
-module Homework2.LogAnalysis (parse, parseMessage) where
+module Homework2.LogAnalysis (parse, parseMessage, insert) where
 
 import Homework2.Log
 import Text.Read (readMaybe)
+
+{- |
+Insert a new LogMessage into an existing MessageTree.
+-}
+insert :: LogMessage -> MessageTree -> MessageTree
+insert (Unknown _) tree = tree
+insert msg Leaf = Node Leaf msg Leaf
+insert msg node@(Node left mid right) = case compareLogMessage msg mid of
+  GT -> Node left mid (insert msg right)
+  LT -> Node (insert msg left) mid right
+  _ -> node
+
+compareLogMessage :: LogMessage -> LogMessage -> Ordering
+compareLogMessage (LogMessage _ lhsTs _) (LogMessage _ rhsTs _) = compare lhsTs rhsTs
+compareLogMessage _ _ = EQ
 
 {- |
 Parse an individual messsage to a LogMessage.
