@@ -1,6 +1,13 @@
 module TestHomework1 (spec) where
 
-import Homework1 (doubleEveryOther, sumDigits, toDigits, toDigitsRev, validate)
+import Homework1 (
+  doubleEveryOther,
+  hanoi,
+  sumDigits,
+  toDigits,
+  toDigitsRev,
+  validate,
+ )
 import Test.Hspec
 
 spec :: Spec
@@ -44,3 +51,7 @@ spec = do
 
     it "validate 4012888888881881" $
       validate 4012888888881882 `shouldBe` False
+
+  describe "Exercise 5" $ do
+    it "hanoi 2 a b c" $
+      hanoi 2 "a" "b" "c" `shouldBe` [("a", "c"), ("a", "b"), ("c", "b")]

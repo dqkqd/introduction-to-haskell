@@ -1,4 +1,4 @@
-module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits, validate) where
+module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits, validate, hanoi) where
 
 -- Exercise 1
 
@@ -63,6 +63,31 @@ False
 -}
 validate :: Integer -> Bool
 validate n = (sumDigits . doubleEveryOther . toDigits) n `mod` 10 == 0
+
+type Peg = String
+type Move = (Peg, Peg)
+
+{- |
+The tower of hanoi. The move includes 3 steps:
+
+* move n - 1 disc from a to c using b as temporary storage
+* move the top disc from a to b
+* move n - 1 disc from c to b using a as temporary storage
+
+>>> hanoi 2 "a" "b" "c"
+[("a","c"),("a","b"),("c","b")]
+-}
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 1 a _ c = [(a, c)]
+hanoi n a b c =
+  -- 1. move n - 1 disc from a to c using b as temporary storage
+  hanoi (n - 1) a b c
+    ++
+    -- 2. move the top disc from a to b
+    [(a, b)]
+    ++
+    -- 3. move n - 1 disc from c to b using a as temporary storage
+    hanoi (n - 1) c a b
 
 {- | Reverse a list.
 
