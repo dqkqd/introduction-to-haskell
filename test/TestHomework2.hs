@@ -5,7 +5,14 @@ import Homework2.Log (
   MessageTree (Leaf, Node),
   MessageType (Error, Info, Warning),
  )
-import Homework2.LogAnalysis (build, inOrder, insert, parse, parseMessage)
+import Homework2.LogAnalysis (
+  build,
+  inOrder,
+  insert,
+  parse,
+  parseMessage,
+  whatWentWrong,
+ )
 import Test.Hspec
 
 spec :: Spec
@@ -117,4 +124,28 @@ spec = do
                    , LogMessage Info 3 "three"
                    , LogMessage Info 4 "four"
                    , LogMessage Info 5 "five"
+                   ]
+
+  describe "Exercise 5" $ do
+    it "whatWentWrong" $
+      whatWentWrong
+        ( parse
+            ( unlines
+                [ "I 6 Completed armadillo processing"
+                , "I 1 Nothing to report"
+                , "E 99 10 Flange failed!"
+                , "I 4 Everything normal"
+                , "I 11 Initiating self-destruct sequence"
+                , "E 70 3 Way too many pickles"
+                , "E 65 8 Bad pickle-flange interaction detected"
+                , "W 5 Flange is due for a check-up"
+                , "I 7 Out for lunch, back in two time steps"
+                , "E 20 2 Too many pickles"
+                , "I 9 Back from lunch"
+                ]
+            )
+        )
+        `shouldBe` [ "Way too many pickles"
+                   , "Bad pickle-flange interaction detected"
+                   , "Flange failed!"
                    ]

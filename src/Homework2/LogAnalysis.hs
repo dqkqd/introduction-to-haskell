@@ -1,7 +1,28 @@
-module Homework2.LogAnalysis (parse, parseMessage, insert, build, inOrder) where
+module Homework2.LogAnalysis (
+  parse,
+  parseMessage,
+  insert,
+  build,
+  inOrder,
+  whatWentWrong,
+) where
 
+import Data.Maybe (mapMaybe)
 import Homework2.Log
 import Text.Read (readMaybe)
+
+{- |
+Take an *unsorted* list of LogMessage, return a list of the messages
+with error severity of 50 or greater
+-}
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong = mapMaybe severeErrorMessage . inOrder . build
+
+severeErrorMessage :: LogMessage -> Maybe String
+severeErrorMessage (LogMessage (Error s) _ msg)
+  | s >= 50 = Just msg
+  | otherwise = Nothing
+severeErrorMessage _ = Nothing
 
 {- |
 Take a sorted MessageTree, produces a list of all the LogMessages sorted by timestamp from smallest to biggest.
