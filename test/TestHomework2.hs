@@ -5,7 +5,7 @@ import Homework2.Log (
   MessageTree (Leaf, Node),
   MessageType (Error, Info, Warning),
  )
-import Homework2.LogAnalysis (insert, parse, parseMessage)
+import Homework2.LogAnalysis (build, insert, parse, parseMessage)
 import Test.Hspec
 
 spec :: Spec
@@ -68,3 +68,32 @@ spec = do
 
     it "insert with equal timestamp leaves the tree unchanged" $
       insert (LogMessage Info 10 "duplicate") tree `shouldBe` tree
+
+  describe "Exercise 3" $ do
+    it "build" $
+      build
+        [ LogMessage Info 5 "five2"
+        , LogMessage Info 3 "three"
+        , LogMessage Info 4 "four"
+        , LogMessage Info 2 "two"
+        , Unknown "garbage"
+        , LogMessage Info 1 "one"
+        , LogMessage Info 5 "five"
+        , Unknown "garbage"
+        ]
+        `shouldBe` Node
+          ( Node
+              Leaf
+              (LogMessage Info 1 "one")
+              ( Node
+                  Leaf
+                  (LogMessage Info 2 "two")
+                  ( Node
+                      (Node Leaf (LogMessage Info 3 "three") Leaf)
+                      (LogMessage Info 4 "four")
+                      Leaf
+                  )
+              )
+          )
+          (LogMessage Info 5 "five")
+          Leaf

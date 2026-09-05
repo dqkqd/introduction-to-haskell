@@ -1,7 +1,13 @@
-module Homework2.LogAnalysis (parse, parseMessage, insert) where
+module Homework2.LogAnalysis (parse, parseMessage, insert, build) where
 
 import Homework2.Log
 import Text.Read (readMaybe)
+
+{- |
+Build a complete MessageTree from a list of messages
+-}
+build :: [LogMessage] -> MessageTree
+build = foldr insert Leaf
 
 {- |
 Insert a new LogMessage into an existing MessageTree.
