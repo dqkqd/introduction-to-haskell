@@ -60,6 +60,8 @@ library
     -- Modules exported by the library.
     exposed-modules:
       Homework1
+      Homework2.LogAnalysis
+      Homework2.Log
 
     -- Modules included in this library but not exported.
     -- other-modules:
