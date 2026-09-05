@@ -1,4 +1,6 @@
-module Homework1 (toDigits, toDigitsRev) where
+module Homework1 (toDigits, toDigitsRev, doubleEveryOther) where
+
+-- Exercise 1
 
 {- | Find digits of a number.
 
@@ -17,6 +19,26 @@ toDigitsRev :: Integer -> [Integer]
 toDigitsRev n
   | n <= 0 = []
   | otherwise = (n `mod` 10) : toDigitsRev (n `div` 10)
+
+-- Exercise 2
+
+{- | Double every others from right to left.
+
+>>> doubleEveryOther [1,2,3,4]
+[2,2,6,4]
+-}
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther n = rev (doubleEveryOtherLeftRight (rev n))
+
+{- | Double every others from left to right.
+
+>>> doubleEveryOtherLeftRight [1,2,3,4]
+[1,4,3,8]
+-}
+doubleEveryOtherLeftRight :: [Integer] -> [Integer]
+doubleEveryOtherLeftRight [] = []
+doubleEveryOtherLeftRight [x] = [x]
+doubleEveryOtherLeftRight (x1 : x2 : xs) = x1 : (x2 * 2) : (doubleEveryOtherLeftRight xs)
 
 {- | Reverse a list.
 

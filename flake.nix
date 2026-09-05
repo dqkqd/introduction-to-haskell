@@ -23,6 +23,7 @@
                 with hsPkgs; [
                   cabal-install
                   haskell-language-server
+                  hlint
                 ])
             )
           ];
