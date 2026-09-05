@@ -101,6 +101,7 @@ test-suite test
     main-is:          Main.hs
     other-modules:
       TestHomework1
+      TestHomework2
 
     -- Test dependencies.
     build-depends:
