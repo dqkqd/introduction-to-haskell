@@ -5,7 +5,7 @@ import Homework2.Log (
   MessageTree (Leaf, Node),
   MessageType (Error, Info, Warning),
  )
-import Homework2.LogAnalysis (build, insert, parse, parseMessage)
+import Homework2.LogAnalysis (build, inOrder, insert, parse, parseMessage)
 import Test.Hspec
 
 spec :: Spec
@@ -97,3 +97,24 @@ spec = do
           )
           (LogMessage Info 5 "five")
           Leaf
+
+  describe "Exercise 4" $ do
+    it "inOrder" $
+      inOrder
+        ( build
+            [ LogMessage Info 5 "five2"
+            , LogMessage Info 3 "three"
+            , LogMessage Info 4 "four"
+            , LogMessage Info 2 "two"
+            , Unknown "garbage"
+            , LogMessage Info 1 "one"
+            , LogMessage Info 5 "five"
+            , Unknown "garbage"
+            ]
+        )
+        `shouldBe` [ LogMessage Info 1 "one"
+                   , LogMessage Info 2 "two"
+                   , LogMessage Info 3 "three"
+                   , LogMessage Info 4 "four"
+                   , LogMessage Info 5 "five"
+                   ]

@@ -1,7 +1,15 @@
-module Homework2.LogAnalysis (parse, parseMessage, insert, build) where
+module Homework2.LogAnalysis (parse, parseMessage, insert, build, inOrder) where
 
 import Homework2.Log
 import Text.Read (readMaybe)
+
+{- |
+Take a sorted MessageTree, produces a list of all the LogMessages sorted by timestamp from smallest to biggest.
+-}
+inOrder :: MessageTree -> [LogMessage]
+inOrder Leaf = []
+inOrder (Node Leaf mid right) = mid : inOrder right
+inOrder (Node left mid right) = inOrder left ++ inOrder (Node Leaf mid right)
 
 {- |
 Build a complete MessageTree from a list of messages
