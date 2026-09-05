@@ -62,6 +62,7 @@ library
       Homework1
       Homework2.LogAnalysis
       Homework2.Log
+      Homework3
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -102,6 +103,7 @@ test-suite test
     other-modules:
       TestHomework1
       TestHomework2
+      TestHomework3
 
     -- Test dependencies.
     build-depends:
