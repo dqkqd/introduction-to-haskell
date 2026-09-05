@@ -1,6 +1,6 @@
 module TestHomework1 (spec) where
 
-import Homework1 (doubleEveryOther, sumDigits, toDigits, toDigitsRev)
+import Homework1 (doubleEveryOther, sumDigits, toDigits, toDigitsRev, validate)
 import Test.Hspec
 
 spec :: Spec
@@ -37,3 +37,10 @@ spec = do
 
     it "sumDigits []" $
       sumDigits [] `shouldBe` 0
+
+  describe "Exercise 4" $ do
+    it "validate 4012888888881881" $
+      validate 4012888888881881 `shouldBe` True
+
+    it "validate 4012888888881881" $
+      validate 4012888888881882 `shouldBe` False

@@ -1,4 +1,4 @@
-module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits) where
+module Homework1 (toDigits, toDigitsRev, doubleEveryOther, sumDigits, validate) where
 
 -- Exercise 1
 
@@ -50,6 +50,19 @@ doubleEveryOtherLeftRight (x1 : x2 : xs) = x1 : (x2 * 2) : (doubleEveryOtherLeft
 sumDigits :: [Integer] -> Integer
 sumDigits [] = 0
 sumDigits (x : xs) = sumDigits xs + sum (toDigitsRev x)
+
+-- Exercise 4
+
+{- | Whether an Integer chould be a valid credit card number.
+
+>>> validate 4012888888881881
+True
+
+>>> validate 4012888888881882
+False
+-}
+validate :: Integer -> Bool
+validate n = (sumDigits . doubleEveryOther . toDigits) n `mod` 10 == 0
 
 {- | Reverse a list.
 
