@@ -1,4 +1,6 @@
-module Homework3 where
+module Homework3 (skips, localMaxima) where
+
+import Data.List (unsnoc)
 
 {- |
 >>> skips "ABCD"
@@ -18,3 +20,20 @@ skips a =
         -- then repeat `n` times to create `n a` list.
         replicate n $ zip [1 ..] a
       )
+
+{- |
+Create 2 shifted adjacent lists, then compare with the original one.
+-}
+localMaxima :: [Integer] -> [Integer]
+localMaxima a =
+  [ mid
+  | (lhs, mid, rhs) <-
+      zip3
+        -- lhs: [5, 6, 1]
+        (drop 2 a)
+        -- mid: [9, 5, 6]
+        (maybe [] fst (unsnoc $ drop 1 a))
+        -- rhs: [2, 9, 5, 6, 1]
+        a
+  , mid > lhs && mid > rhs
+  ]

@@ -1,6 +1,6 @@
 module TestHomework3 (spec) where
 
-import Homework3 (skips)
+import Homework3 (localMaxima, skips)
 import Test.Hspec
 
 spec :: Spec
@@ -20,3 +20,13 @@ spec = do
 
     it "skips []" $
       skips ([] :: [Int]) `shouldBe` ([] :: [[Int]])
+
+  describe "Exercise 2: localMaxima" $ do
+    it "localMaxima [2,9,5,6,1]" $
+      localMaxima [2, 9, 5, 6, 1] `shouldBe` [9, 6]
+
+    it "localMaxima [2,3,4,1,5]" $
+      localMaxima [2, 3, 4, 1, 5] `shouldBe` [4]
+
+    it "localMaxima [1,2,3,4,5]" $
+      localMaxima [1, 2, 3, 4, 5] `shouldBe` []
