@@ -1,6 +1,6 @@
 module TestHomework4 (spec) where
 
-import Homework4 (fun1, fun2)
+import Homework4 (Tree (Leaf, Node), foldTree, fun1, fun2)
 import Test.Hspec
 
 spec :: Spec
@@ -16,3 +16,22 @@ spec = do
         fun2 10 `shouldBe` 40
       it "fun2 9" $
         fun2 9 `shouldBe` 276
+
+    describe "Exercise 2" $ do
+      it "foldTree ABCDEFGHIJ" $
+        foldTree "ABCDEFGHIJ"
+          `shouldBe` Node
+            3
+            ( Node
+                2
+                (Node 1 (Node 0 Leaf 'D' Leaf) 'G' Leaf)
+                'I'
+                (Node 1 (Node 0 Leaf 'A' Leaf) 'E' Leaf)
+            )
+            'J'
+            ( Node
+                2
+                (Node 1 (Node 0 Leaf 'B' Leaf) 'F' Leaf)
+                'H'
+                (Node 0 Leaf 'C' Leaf)
+            )
