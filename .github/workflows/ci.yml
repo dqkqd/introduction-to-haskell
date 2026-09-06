@@ -1,22 +1,18 @@
 name: CI
-
 on:
   push:
     branches: [main]
   pull_request:
-
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: haskell-actions/setup@v2
         id: setup
         with:
           ghc-version: "9.10"
           cabal-version: "latest"
-
       - uses: actions/cache@v4
         with:
           path: |
@@ -27,16 +23,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ghc-${{ steps.setup.outputs.ghc-version }}-cabal-
             ${{ runner.os }}-ghc-
-
       - name: Update package index
         run: cabal update
-
       - name: Build
         run: cabal build --enable-tests all
-
       - name: Test
         run: cabal test all
-
       - name: Check formatting
         uses: haskell-actions/run-fourmolu@v13
         with:
@@ -45,10 +37,8 @@ jobs:
             src/**/*.hs
             test/**/*.hs
             doctest/**/*.hs
-
       - name: Install HLint
         uses: haskell-actions/hlint-setup@v2
-
       - name: Run HLint
         uses: haskell-actions/hlint-run@v2
         with:
