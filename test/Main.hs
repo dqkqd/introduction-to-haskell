@@ -4,6 +4,7 @@ import TestHomework2 qualified
 import TestHomework3 qualified
 import TestHomework4 qualified
 import TestHomework5 qualified
+import TestHomework6 qualified
 
 main :: IO ()
 main = hspec $ do
@@ -12,3 +13,4 @@ main = hspec $ do
   TestHomework3.spec
   TestHomework4.spec
   TestHomework5.spec
+  TestHomework6.spec

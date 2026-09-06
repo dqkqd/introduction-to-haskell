@@ -68,6 +68,7 @@ library
       Homework5.ExprT
       Homework5.Parser
       Homework5.StackVM
+      Homework6
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -113,6 +114,7 @@ test-suite test
       TestHomework3
       TestHomework4
       TestHomework5
+      TestHomework6
 
     -- Test dependencies.
     build-depends:
