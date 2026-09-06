@@ -1,6 +1,6 @@
 module TestHomework4 (spec) where
 
-import Homework4 (Tree (Leaf, Node), foldTree, fun1, fun2)
+import Homework4 (Tree (Leaf, Node), foldTree, fun1, fun2, map', xor)
 import Test.Hspec
 
 spec :: Spec
@@ -35,3 +35,25 @@ spec = do
                 'H'
                 (Node 0 Leaf 'C' Leaf)
             )
+
+    describe "Exercise 3" $ do
+      it "xor [False, True, False]" $
+        xor [False, True, False] `shouldBe` True
+
+      it "xor [False, True, False, False, True]" $
+        xor [False, True, False, False, True] `shouldBe` False
+
+      it "xor []" $
+        xor [] `shouldBe` False
+
+      it "map' (+)" $
+        map'
+          (+ 1)
+          ([1, 2, 3, 4, 5] :: [Integer])
+          `shouldBe` ([2, 3, 4, 5, 6] :: [Integer])
+
+      it "map' (-)" $
+        map'
+          (subtract 1)
+          ([1, 2, 3, 4, 5] :: [Integer])
+          `shouldBe` ([0, 1, 2, 3, 4] :: [Integer])

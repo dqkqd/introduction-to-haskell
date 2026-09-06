@@ -1,4 +1,4 @@
-module Homework4 (fun1, fun2, foldTree, Tree (Leaf, Node)) where
+module Homework4 (fun1, fun2, foldTree, Tree (Leaf, Node), xor, map') where
 
 fun1 :: [Integer] -> Integer
 fun1 = product . map (\x -> x - 2) . filter even
@@ -30,3 +30,10 @@ insert c (Node _ lhs mid rhs)
 
 foldTree :: [a] -> Tree a
 foldTree = foldr insert Leaf
+
+xor :: [Bool] -> Bool
+xor = foldr (/=) False
+
+map' :: (a -> b) -> [a] -> [b]
+{- HLINT ignore "Use map" -}
+map' f = foldr (\x acc -> f x : acc) []
