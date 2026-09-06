@@ -1,4 +1,4 @@
-module Homework5.Calc (eval, evalStr) where
+module Homework5.Calc (eval, evalStr, Expr (lit, add, mul), reify) where
 
 import Homework5.ExprT (ExprT (Add, Lit, Mul))
 import Homework5.Parser (parseExp)
@@ -13,3 +13,15 @@ evalStr :: String -> Maybe Integer
 evalStr program = do
   prog <- parseExp Lit Add Mul program
   return (eval prog)
+
+class Expr a where
+  lit :: Integer -> a
+  add, mul :: a -> a -> a
+
+instance Expr ExprT where
+  lit = Lit
+  add = Add
+  mul = Mul
+
+reify :: ExprT -> ExprT
+reify = id
