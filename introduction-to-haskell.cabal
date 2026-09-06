@@ -64,6 +64,10 @@ library
       Homework2.Log
       Homework3
       Homework4
+      Homework5.Calc
+      Homework5.ExprT
+      Homework5.Parser
+      Homework5.StackVM
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -108,6 +112,7 @@ test-suite test
       TestHomework2
       TestHomework3
       TestHomework4
+      TestHomework5
 
     -- Test dependencies.
     build-depends:

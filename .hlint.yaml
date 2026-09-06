@@ -1,0 +1,1 @@
+- ignore: {name: "", within: ["Homework5.Parser", "Homework5.ExprT", "Homework5.StackVM"]}
