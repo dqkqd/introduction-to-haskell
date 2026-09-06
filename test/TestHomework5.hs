@@ -1,7 +1,14 @@
 module TestHomework5 (spec) where
 
-import Homework5.Calc (Expr (add, lit, mul), eval, evalStr)
+import Homework5.Calc (
+  Expr (add, lit, mul),
+  MinMax (MinMax),
+  Mod7 (Mod7),
+  eval,
+  evalStr,
+ )
 import Homework5.ExprT
+import Homework5.Parser (parseExp)
 import Test.Hspec
 
 spec :: Spec
@@ -18,3 +25,32 @@ spec = do
     describe "Exercise 3" $ do
       it "lit add mul" $
         mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` Mul (Add (Lit 2) (Lit 3)) (Lit 4)
+
+    describe "Exercise 4" $ do
+      it "integer" $
+        let
+          value :: Maybe Integer
+          value = parseExp lit add mul "(3 * -4) + 5"
+         in
+          value `shouldBe` Just (-7)
+
+      it "bool" $
+        let
+          value :: Maybe Bool
+          value = parseExp lit add mul "(3 * -4) + 5"
+         in
+          value `shouldBe` Just True
+
+      it "minmax" $
+        let
+          value :: Maybe MinMax
+          value = parseExp lit add mul "(3 * -4) + 5"
+         in
+          value `shouldBe` Just (MinMax 5)
+
+      it "mod7" $
+        let
+          value :: Maybe Mod7
+          value = parseExp lit add mul "(3 * -4) + 5"
+         in
+          value `shouldBe` Just (Mod7 0)

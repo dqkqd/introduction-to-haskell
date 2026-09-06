@@ -1,4 +1,11 @@
-module Homework5.Calc (eval, evalStr, Expr (lit, add, mul), reify) where
+module Homework5.Calc (
+  eval,
+  evalStr,
+  Expr (lit, add, mul),
+  reify,
+  MinMax (MinMax),
+  Mod7 (Mod7),
+) where
 
 import Homework5.ExprT (ExprT (Add, Lit, Mul))
 import Homework5.Parser (parseExp)
@@ -25,3 +32,25 @@ instance Expr ExprT where
 
 reify :: ExprT -> ExprT
 reify = id
+
+instance Expr Integer where
+  lit v = v
+  add = (+)
+  mul = (*)
+
+instance Expr Bool where
+  lit v = v > 0
+  add l r = l || r
+  mul l r = l && r
+
+newtype MinMax = MinMax Integer deriving (Eq, Show)
+instance Expr MinMax where
+  lit = MinMax
+  add (MinMax l) (MinMax r) = MinMax $ max l r
+  mul (MinMax l) (MinMax r) = MinMax $ min l r
+
+newtype Mod7 = Mod7 Integer deriving (Eq, Show)
+instance Expr Mod7 where
+  lit v = Mod7 $ v `mod` 7
+  add (Mod7 l) (Mod7 r) = Mod7 $ (l + r) `mod` 7
+  mul (Mod7 l) (Mod7 r) = Mod7 $ (l * r) `mod` 7
