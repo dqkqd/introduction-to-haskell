@@ -1,4 +1,4 @@
-module Homework3 (skips, localMaxima) where
+module Homework3 (skips, localMaxima, histogram) where
 
 import Data.List (unsnoc)
 
@@ -37,3 +37,39 @@ localMaxima a =
         a
   , mid > lhs && mid > rhs
   ]
+
+{-
+ -}
+histogram :: [Integer] -> String
+histogram a =
+  let
+    -- count the number of elements from 0..9 in a.
+    -- E.g: [1,1,5] -> [0,2,0,0,0,1,0,0,0,0]
+    count =
+      zipWith
+        ( \x y ->
+            -- count the number of element equals y
+            length $ filter (== y) x
+        )
+        (replicate 10 a)
+        [0 .. 9]
+
+    res =
+      map
+        ( ( \cs level ->
+              -- only set '*' for those higher than level
+              map
+                (\c -> if c >= level then '*' else ' ')
+                cs
+          )
+            count
+        )
+        -- list of level
+        (reverse [1 .. maximum count])
+   in
+    unlines
+      ( res
+          ++
+          -- add two bottom levels
+          ["==========", "0123456789"]
+      )
