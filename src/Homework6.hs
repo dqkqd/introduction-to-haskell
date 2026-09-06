@@ -1,4 +1,4 @@
-module Homework6 (fibs1) where
+module Homework6 (fibs1, fibs2) where
 
 fib :: Integer -> Integer
 fib 0 = 0
@@ -7,3 +7,6 @@ fib n = fib (n - 1) + fib (n - 2)
 
 fibs1 :: [Integer]
 fibs1 = map fib [0 ..]
+
+fibs2 :: [Integer]
+fibs2 = 0 : 1 : zipWith (+) fibs2 (drop 1 fibs2)
