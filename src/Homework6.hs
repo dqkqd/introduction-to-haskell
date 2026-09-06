@@ -1,4 +1,14 @@
-module Homework6 (fibs1, fibs2, streamToList, Stream (Cons)) where
+module Homework6 (
+  fibs1,
+  fibs2,
+  streamToList,
+  streamRepeat,
+  streamMap,
+  streamFromSeed,
+  Stream (Cons),
+) where
+
+import Data.List (intercalate)
 
 fib :: Integer -> Integer
 fib 0 = 0
@@ -17,4 +27,15 @@ streamToList :: Stream a -> [a]
 streamToList (Cons x s) = x : streamToList s
 
 instance (Show a) => Show (Stream a) where
-  show s = show $ take 20 $ streamToList s
+  show s = "Stream[" ++ firstElements ++ ",...]"
+   where
+    firstElements = intercalate "," . map show . take 20 $ streamToList s
+
+streamRepeat :: a -> Stream a
+streamRepeat x = Cons x (streamRepeat x)
+
+streamMap :: (a -> b) -> Stream a -> Stream b
+streamMap f (Cons x s) = Cons (f x) $ streamMap f s
+
+streamFromSeed :: (a -> a) -> a -> Stream a
+streamFromSeed f x = Cons x $ streamFromSeed f (f x)
