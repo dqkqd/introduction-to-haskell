@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeSynonymInstances #-}
+
 module Homework5.Calc (
   eval,
   evalStr,
@@ -5,10 +7,12 @@ module Homework5.Calc (
   reify,
   MinMax (MinMax),
   Mod7 (Mod7),
+  compile,
 ) where
 
 import Homework5.ExprT (ExprT (Add, Lit, Mul))
 import Homework5.Parser (parseExp)
+import Homework5.StackVM qualified as StackVM
 
 eval :: ExprT -> Integer
 eval x = case x of
@@ -54,3 +58,11 @@ instance Expr Mod7 where
   lit v = Mod7 $ v `mod` 7
   add (Mod7 l) (Mod7 r) = Mod7 $ (l + r) `mod` 7
   mul (Mod7 l) (Mod7 r) = Mod7 $ (l * r) `mod` 7
+
+instance Expr StackVM.Program where
+  lit v = [StackVM.PushI v]
+  add l r = l ++ r ++ [StackVM.Add]
+  mul l r = l ++ r ++ [StackVM.Mul]
+
+compile :: String -> Maybe StackVM.Program
+compile = parseExp lit add mul

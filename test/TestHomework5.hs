@@ -4,11 +4,14 @@ import Homework5.Calc (
   Expr (add, lit, mul),
   MinMax (MinMax),
   Mod7 (Mod7),
+  compile,
   eval,
   evalStr,
  )
 import Homework5.ExprT
 import Homework5.Parser (parseExp)
+import Homework5.StackVM (stackVM)
+import Homework5.StackVM qualified as VM
 import Test.Hspec
 
 spec :: Spec
@@ -54,3 +57,11 @@ spec = do
           value = parseExp lit add mul "(3 * -4) + 5"
          in
           value `shouldBe` Just (Mod7 0)
+
+    describe "Exercise 5" $ do
+      it "compile and run on the stack VM" $
+        case compile "(2 + 3) * 4" of
+          Just prog -> case stackVM prog of
+            Right (VM.IVal v) -> v `shouldBe` 20
+            other -> expectationFailure ("stackVM: " ++ show other)
+          Nothing -> expectationFailure "compile returned Nothing"
