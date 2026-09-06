@@ -1,6 +1,14 @@
 module TestHomework4 (spec) where
 
-import Homework4 (Tree (Leaf, Node), foldTree, fun1, fun2, map', xor)
+import Homework4 (
+  Tree (Leaf, Node),
+  foldTree,
+  fun1,
+  fun2,
+  map',
+  sieveSundaram,
+  xor,
+ )
 import Test.Hspec
 
 spec :: Spec
@@ -57,3 +65,7 @@ spec = do
           (subtract 1)
           ([1, 2, 3, 4, 5] :: [Integer])
           `shouldBe` ([0, 1, 2, 3, 4] :: [Integer])
+
+      it "sieveSundaram" $
+        sieveSundaram 20
+          `shouldBe` [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]

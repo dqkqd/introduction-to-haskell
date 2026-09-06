@@ -1,4 +1,14 @@
-module Homework4 (fun1, fun2, foldTree, Tree (Leaf, Node), xor, map') where
+module Homework4 (
+  fun1,
+  fun2,
+  foldTree,
+  Tree (Leaf, Node),
+  xor,
+  map',
+  sieveSundaram,
+) where
+
+import Data.Set qualified as Set
 
 fun1 :: [Integer] -> Integer
 fun1 = product . map (\x -> x - 2) . filter even
@@ -37,3 +47,19 @@ xor = foldr (/=) False
 map' :: (a -> b) -> [a] -> [b]
 {- HLINT ignore "Use map" -}
 map' f = foldr (\x acc -> f x : acc) []
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n =
+  [ 2 * x + 1
+  | x <- [1 .. n]
+  , x `Set.notMember` excluded
+  ]
+ where
+  excluded =
+    Set.fromList
+      [ i + j + 2 * i * j
+      | i <- [1 .. n]
+      , j <- [1 .. n]
+      , i <= j
+      , i + j + 2 * i * j <= n
+      ]
