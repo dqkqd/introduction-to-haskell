@@ -3,6 +3,9 @@ module TestHomework6 (spec) where
 import Homework6 (
   fibs1,
   fibs2,
+  interleaveStreams,
+  nats,
+  ruler,
   streamFromSeed,
   streamMap,
   streamRepeat,
@@ -39,3 +42,17 @@ spec = do
       it "streamFromSeed" $
         show (streamFromSeed (+ 2) (1 :: Integer))
           `shouldBe` "Stream[1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,...]"
+
+    describe "Exercise 5" $ do
+      it "nats" $
+        show nats
+          `shouldBe` "Stream[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,...]"
+
+      it "interleaveStreams" $
+        show
+          (interleaveStreams (streamRepeat (0 :: Integer)) (streamRepeat (1 :: Integer)))
+          `shouldBe` "Stream[0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,...]"
+
+      it "ruler" $
+        show ruler
+          `shouldBe` "Stream[0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2,...]"

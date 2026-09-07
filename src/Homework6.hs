@@ -6,6 +6,9 @@ module Homework6 (
   streamMap,
   streamFromSeed,
   Stream (Cons),
+  nats,
+  interleaveStreams,
+  ruler,
 ) where
 
 import Data.List (intercalate)
@@ -39,3 +42,15 @@ streamMap f (Cons x s) = Cons (f x) $ streamMap f s
 
 streamFromSeed :: (a -> a) -> a -> Stream a
 streamFromSeed f x = Cons x $ streamFromSeed f (f x)
+
+nats :: Stream Integer
+nats = streamFromSeed (+ (1 :: Integer)) 0
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (Cons x s) rhs = Cons x (interleaveStreams rhs s)
+
+ruler :: Stream Integer
+ruler = go 0
+ where
+  go :: Integer -> Stream Integer
+  go n = interleaveStreams (streamRepeat n) (go (n + 1))
