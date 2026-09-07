@@ -10,6 +10,7 @@ import Homework6 (
   streamMap,
   streamRepeat,
   streamToList,
+  x,
  )
 import Test.Hspec
 
@@ -56,3 +57,8 @@ spec = do
       it "ruler" $
         show ruler
           `shouldBe` "Stream[0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2,...]"
+
+    describe "Exercise 6" $ do
+      it "x" $
+        show x
+          `shouldBe` "Stream[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
