@@ -1,6 +1,7 @@
 module TestHomework6 (spec) where
 
 import Homework6 (
+  Stream,
   fibs1,
   fibs2,
   interleaveStreams,
@@ -62,3 +63,18 @@ spec = do
       it "x" $
         show x
           `shouldBe` "Stream[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
+
+      it "fromInteger" $
+        show (10 :: (Stream Integer))
+          `shouldBe` "Stream[10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
+
+      it "+" $
+        show (x + x + 10)
+          `shouldBe` "Stream[10,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
+
+      it "*" $
+        show
+          ( (1 + 2 * x + x ^ (2 :: Integer) + x ^ (3 :: Integer))
+              * (1 + 2 * x + x ^ (2 :: Integer) + x ^ (3 :: Integer))
+          )
+          `shouldBe` "Stream[1,4,6,6,5,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
