@@ -64,3 +64,11 @@ instance Num (Stream Integer) where
   negate = streamMap (* (-1))
   (+) (Cons a0 a') (Cons b0 b') = Cons (a0 + b0) (a' + b')
   (*) (Cons a0 a') b = streamMap (* a0) b + Cons 0 (a' * b)
+
+instance Fractional (Stream Integer) where
+  (/) a@(Cons a0 a') b@(Cons b0 b') =
+    Cons
+      (a0 `div` b0)
+      $ streamMap
+        (`div` b0)
+        (a' - (a / b) * b')
