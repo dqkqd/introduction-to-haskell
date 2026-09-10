@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-missing-methods #-}
+
 module Homework6 (
   fibs1,
   fibs2,
