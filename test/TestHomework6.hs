@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-type-defaults #-}
+
 module TestHomework6 (spec) where
 
 import Homework6 (
@@ -29,20 +31,20 @@ spec = do
 
     describe "Exercise 3" $ do
       it "streamToList" $
-        take 10 (streamToList $ streamRepeat (5 :: Integer))
+        take 10 (streamToList $ streamRepeat 5)
           `shouldBe` replicate 10 5
 
     describe "Exercise 4" $ do
       it "streamRepeat" $
-        show (streamRepeat (5 :: Integer))
+        show (streamRepeat 5)
           `shouldBe` "Stream[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,...]"
 
       it "streamMap" $
-        show (streamMap (+ 1) $ streamRepeat (5 :: Integer))
+        show (streamMap (+ 1) $ streamRepeat 5)
           `shouldBe` "Stream[6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,...]"
 
       it "streamFromSeed" $
-        show (streamFromSeed (+ 2) (1 :: Integer))
+        show (streamFromSeed (+ 2) 1)
           `shouldBe` "Stream[1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,...]"
 
     describe "Exercise 5" $ do
@@ -52,7 +54,7 @@ spec = do
 
       it "interleaveStreams" $
         show
-          (interleaveStreams (streamRepeat (0 :: Integer)) (streamRepeat (1 :: Integer)))
+          (interleaveStreams (streamRepeat 0) (streamRepeat 1))
           `shouldBe` "Stream[0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,...]"
 
       it "ruler" $
@@ -74,8 +76,8 @@ spec = do
 
       it "*" $
         show
-          ( (1 + 2 * x + x ^ (2 :: Integer) + x ^ (3 :: Integer))
-              * (1 + 2 * x + x ^ (2 :: Integer) + x ^ (3 :: Integer))
+          ( (1 + 2 * x + x ^ 2 + x ^ 3)
+              * (1 + 2 * x + x ^ 2 + x ^ 3)
           )
           `shouldBe` "Stream[1,4,6,6,5,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,...]"
 
