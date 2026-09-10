@@ -1,6 +1,7 @@
 module Homework6 (
   fibs1,
   fibs2,
+  fibs3,
   streamToList,
   streamRepeat,
   streamMap,
@@ -72,3 +73,6 @@ instance Fractional (Stream Integer) where
       $ streamMap
         (`div` b0)
         (a' - (a / b) * b')
+
+fibs3 :: Stream Integer
+fibs3 = x / (1 - x - x * x)
