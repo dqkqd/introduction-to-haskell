@@ -4,6 +4,7 @@ module TestHomework6 (spec) where
 
 import Homework6 (
   Stream,
+  fib4,
   fibs1,
   fibs2,
   fibs3,
@@ -99,3 +100,8 @@ spec = do
       it "fibs3" $
         show fibs3
           `shouldBe` "Stream[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,...]"
+
+    describe "Exercise 7" $ do
+      it "fib4" $
+        fib4 19
+          `shouldBe` 4181

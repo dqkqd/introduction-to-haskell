@@ -4,6 +4,7 @@ module Homework6 (
   fibs1,
   fibs2,
   fibs3,
+  fib4,
   streamToList,
   streamRepeat,
   streamMap,
@@ -78,3 +79,24 @@ instance Fractional (Stream Integer) where
 
 fibs3 :: Stream Integer
 fibs3 = x / (1 - x - x * x)
+
+data Matrix = Matrix
+  { a00 :: Integer
+  , a01 :: Integer
+  , a10 :: Integer
+  , a11 :: Integer
+  }
+  deriving (Show, Eq)
+
+instance Num Matrix where
+  (*) (Matrix a00 a01 a10 a11) (Matrix b00 b01 b10 b11) =
+    Matrix
+      (a00 * b00 + a01 * b10)
+      (a00 * b01 + a01 * b11)
+      (a10 * b00 + a11 * b10)
+      (a10 * b01 + a11 * b11)
+
+fib4 :: Integer -> Integer
+fib4 n = a01
+ where
+  Matrix _ a01 _ _ = Matrix 1 1 1 0 ^ n
