@@ -12,6 +12,7 @@ import Homework7.JoinList (
 import Homework7.Sized (Size)
 
 import Control.Monad (forM_)
+import Homework7.Scrabble (Score (Score), scoreLine)
 import Test.Hspec
 import Text.Printf (printf)
 
@@ -134,3 +135,8 @@ spec = do
                 (show expected)
             )
             $ jlToList (takeJ i tree) `shouldBe` expected
+
+    describe "Exercise 3" $ do
+      it "scoreLine" $
+        scoreLine "yay" +++ scoreLine "haskell!"
+          `shouldBe` Append (Score 23) (Single (Score 9) "yay") (Single (Score 14) "haskell!")
