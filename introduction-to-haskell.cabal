@@ -69,6 +69,11 @@ library
       Homework5.Parser
       Homework5.StackVM
       Homework6
+      Homework7.Editor
+      Homework7.Buffer
+      Homework7.Sized
+      Homework7.StringBuffer
+      Homework7.StringBufEditor
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -79,7 +84,8 @@ library
     -- Other library packages from which modules are imported.
     build-depends:
       base ^>=4.20.2.0,
-      containers
+      containers,
+      mtl
 
     -- Directories containing source files.
     hs-source-dirs:   src

@@ -1,1 +1,11 @@
-- ignore: {name: "", within: ["Homework5.Parser", "Homework5.ExprT", "Homework5.StackVM"]}
+- ignore:
+    name: ""
+    within:
+      - Homework5.Parser
+      - Homework5.ExprT
+      - Homework5.StackVM
+      - Homework7.Editor
+      - Homework7.Buffer
+      - Homework7.Sized
+      - Homework7.StringBuffer
+      - Homework7.StringBufEditor
