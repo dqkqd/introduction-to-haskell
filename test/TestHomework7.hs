@@ -1,6 +1,6 @@
 module TestHomework7 (spec) where
 
-import Homework7.JoinList (JoinList (Append, Empty, Single), tag)
+import Homework7.JoinList (JoinList (Append, Empty, Single), tag, (+++))
 
 import Test.Hspec
 
@@ -16,3 +16,7 @@ spec = do
 
       it "tag append" $
         tag (Append "10" (Single "20" "30") (Single "40" "50")) `shouldBe` "10"
+
+      it "(+++)" $
+        Single "20" "30" +++ Single "40" "50"
+          `shouldBe` Append "2040" (Single "20" "30") (Single "40" "50")

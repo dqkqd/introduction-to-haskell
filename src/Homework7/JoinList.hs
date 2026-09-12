@@ -1,4 +1,4 @@
-module Homework7.JoinList (JoinList (Empty, Single, Append), tag) where
+module Homework7.JoinList (JoinList (Empty, Single, Append), tag, (+++)) where
 
 data JoinList m a
   = Empty
@@ -10,3 +10,6 @@ tag :: (Monoid m) => JoinList m a -> m
 tag Empty = mempty
 tag (Single m _) = m
 tag (Append m _ _) = m
+
+(+++) :: (Monoid m) => JoinList m a -> JoinList m a -> JoinList m a
+(+++) x y = Append (tag x <> tag y) x y
