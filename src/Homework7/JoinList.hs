@@ -21,6 +21,8 @@ tag (Single m _) = m
 tag (Append m _ _) = m
 
 (+++) :: (Monoid m) => JoinList m a -> JoinList m a -> JoinList m a
+(+++) Empty x = x
+(+++) x Empty = x
 (+++) x y = Append (tag x <> tag y) x y
 
 actualSize :: (Sized b) => b -> Int

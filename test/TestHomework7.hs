@@ -27,9 +27,29 @@ spec = do
       it "tag append" $
         tag (Append "10" (Single "20" "30") (Single "40" "50")) `shouldBe` "10"
 
-      it "(+++)" $
-        Single "20" "30" +++ Single "40" "50"
-          `shouldBe` Append "2040" (Single "20" "30") (Single "40" "50")
+      let cases =
+            [ (Empty, Empty, Empty)
+            , (Single "1" "2", Empty, Single "1" "2")
+            , (Empty, Single "1" "2", Single "1" "2")
+            , (Single "1" "2", Single "3" "4", Append "13" (Single "1" "2") (Single "3" "4"))
+            ,
+              ( Append "13" (Single "1" "2") (Single "3" "4")
+              , Append "57" (Single "5" "6") (Single "7" "8")
+              , Append
+                  "1357"
+                  (Append "13" (Single "1" "2") (Single "3" "4"))
+                  (Append "57" (Single "5" "6") (Single "7" "8"))
+              )
+            ]
+      forM_ cases $ \(lhs, rhs, expected) ->
+        it
+          ( printf
+              "%s +++ %s = %s"
+              (show lhs)
+              (show lhs)
+              (show rhs)
+          )
+          $ (lhs +++ rhs) `shouldBe` expected
 
     describe "Exercise 2" $ do
       let singleJ = Single (1 :: Size)
