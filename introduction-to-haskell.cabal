@@ -160,3 +160,29 @@ test-suite doctests
         base ^>=4.20.2.0,
         introduction-to-haskell,
         doctest
+
+executable editor
+    -- Import common warning flags.
+    import:           warnings
+
+    -- Modules included in this library but not exported.
+    other-modules:
+      Homework7.Editor
+      Homework7.Buffer
+      Homework7.Sized
+      Homework7.JoinList
+      Homework7.Scrabble
+      Homework7.JoinListBuffer
+
+    -- Other library packages from which modules are imported.
+    build-depends:
+      base ^>=4.20.2.0,
+      containers,
+      mtl
+
+    -- Directories containing source files.
+    hs-source-dirs:   src
+    main-is:          Homework7/Main.hs
+
+    -- Base language which the package is written in.
+    default-language: GHC2024

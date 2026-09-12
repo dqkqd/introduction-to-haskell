@@ -1,4 +1,4 @@
-module Homework7.JoinListBufEditor where
+module Main where
 
 import Homework7.Buffer (fromString)
 import Homework7.Editor (editor, runEditor)
