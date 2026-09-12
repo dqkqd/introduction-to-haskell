@@ -131,6 +131,7 @@ test-suite test
     build-depends:
         base ^>=4.20.2.0,
         introduction-to-haskell,
+        containers,
         hspec
 
 test-suite doctests

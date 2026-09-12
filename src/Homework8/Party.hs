@@ -11,5 +11,20 @@ moreFun g1 g2
   | g1 > g2 = g1
   | otherwise = g2
 
-treeFold :: (a -> b -> b) -> b -> Tree a -> b
-treeFold f z (Node root forest) = f root (foldr (flip (treeFold f)) z forest)
+-- trying to fold and calculate the sum of this tree
+-- then at the root node, we must have sum of all
+-- of its children.
+-- Which means the function must be able to calculate
+-- its value with all of its children
+--    5
+--  / | \
+-- 1  2  3
+-- But what do we have at the root node?
+-- we don't have any children there
+treeFold ::
+  (a -> [b] -> b) -> -- a function that take a value at node `a`, a list of computed values in its children
+  b -> -- a zeroed value (mempty)
+  Tree a ->
+  b
+treeFold f z (Node root []) = f root [z]
+treeFold f z (Node root children) = f root (map (treeFold f z) children)
