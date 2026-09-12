@@ -75,6 +75,8 @@ library
       Homework7.JoinList
       Homework7.Scrabble
       Homework7.JoinListBuffer
+      Homework8.Party
+      Homework8.Employee
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -123,6 +125,7 @@ test-suite test
       TestHomework5
       TestHomework6
       TestHomework7
+      TestHomework8
 
     -- Test dependencies.
     build-depends:

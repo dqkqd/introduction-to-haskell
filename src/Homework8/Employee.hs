@@ -1,4 +1,5 @@
-module Employee where
+{- FOURMOLU_DISABLE -}
+module Homework8.Employee where
 
 import           Data.Tree
 
