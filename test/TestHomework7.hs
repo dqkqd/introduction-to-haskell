@@ -1,6 +1,12 @@
 module TestHomework7 (spec) where
 
-import Homework7.JoinList (JoinList (Append, Empty, Single), indexJ, tag, (+++))
+import Homework7.JoinList (
+  JoinList (Append, Empty, Single),
+  indexJ,
+  jlToList,
+  tag,
+  (+++),
+ )
 import Homework7.Sized (Size)
 
 import Control.Monad (forM_)
@@ -44,5 +50,11 @@ spec = do
             , (5 :: Int, append, Nothing)
             ]
       forM_ cases $ \(i, tree, expected) ->
-        it (printf "%d %s = %s" i (show tree) (show expected)) $
+        it
+          ( printf
+              "indexJ index=%d list=%s, expected=%s"
+              i
+              (show (jlToList tree))
+              (show expected)
+          ) $
           indexJ i tree `shouldBe` expected

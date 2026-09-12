@@ -1,4 +1,4 @@
-module Homework7.JoinList (JoinList (Empty, Single, Append), tag, (+++), indexJ) where
+module Homework7.JoinList (JoinList (Empty, Single, Append), tag, (+++), indexJ, jlToList) where
 
 import Homework7.Sized (Sized (size), getSize)
 
@@ -33,3 +33,8 @@ indexJ n x@(Append _ lhs rhs)
   | n < actualSize (tag lhs) = indexJ n lhs
   -- skip the left, take the index from the right
   | otherwise = indexJ (n - actualSize (tag rhs)) rhs
+
+jlToList :: JoinList m a -> [a]
+jlToList Empty = []
+jlToList (Single _ a) = [a]
+jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
