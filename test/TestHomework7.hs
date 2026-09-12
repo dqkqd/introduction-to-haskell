@@ -73,6 +73,26 @@ spec = do
               , (3 :: Int, append, Just "4")
               , (4 :: Int, append, Nothing)
               , (5 :: Int, append, Nothing)
+              ,
+                ( 0 :: Int
+                , Append 3 (Single 1 "1") (Append 2 (Single 1 "2") (Single 1 "3"))
+                , Just "1"
+                )
+              ,
+                ( 1 :: Int
+                , Append 3 (Single 1 "1") (Append 2 (Single 1 "2") (Single 1 "3"))
+                , Just "2"
+                )
+              ,
+                ( 2 :: Int
+                , Append 3 (Single 1 "1") (Append 2 (Single 1 "2") (Single 1 "3"))
+                , Just "3"
+                )
+              ,
+                ( 3 :: Int
+                , Append 3 (Single 1 "1") (Append 2 (Single 1 "2") (Single 1 "3"))
+                , Nothing
+                )
               ]
         forM_ cases $ \(i, tree, expected) ->
           it

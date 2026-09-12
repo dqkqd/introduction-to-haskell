@@ -42,7 +42,7 @@ indexJ n x@(Append _ lhs rhs)
   -- only need to take the left
   | n < actualSize (tag lhs) = indexJ n lhs
   -- skip the left, take the index from the right
-  | otherwise = indexJ (n - actualSize (tag rhs)) rhs
+  | otherwise = indexJ (n - actualSize (tag lhs)) rhs
 
 jlToList :: JoinList m a -> [a]
 jlToList Empty = []
