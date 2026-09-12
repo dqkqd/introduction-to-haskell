@@ -51,3 +51,9 @@ data GuestList = GL [Employee] Fun
 
 instance Ord GuestList where
   compare (GL _ f1) (GL _ f2) = compare f1 f2
+
+instance Semigroup GuestList where
+  (<>) (GL es1 fun1) (GL es2 fun2) = GL (es1 ++ es2) (fun1 + fun2)
+
+instance Monoid GuestList where
+  mempty = GL [] 0

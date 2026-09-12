@@ -11,3 +11,11 @@ spec = do
       it "glCons" $
         glCons (Emp "One" 1) (GL [Emp "Two" 2] 2)
           `shouldBe` GL [Emp "One" 1, Emp "Two" 2] 3
+
+      it "Monoid GuestList empty" $
+        (mempty :: GuestList)
+          `shouldBe` GL ([] :: [Employee]) 0
+
+      it "Monoid GuestList <>" $
+        (GL [Emp "One" 1] 1 <> GL [Emp "Two" 2] 2)
+          `shouldBe` GL [Emp "One" 1, Emp "Two" 2] 3
