@@ -35,3 +35,8 @@ only e = glCons e mempty
 
 nextLevel :: Employee -> [(GuestList, GuestList)] -> (GuestList, GuestList)
 nextLevel boss members = (only boss, foldMap (uncurry moreFun) members)
+
+maxFun :: Tree Employee -> GuestList
+maxFun t =
+  uncurry moreFun $
+    treeFold nextLevel (mempty :: GuestList, mempty :: GuestList) t

@@ -7,8 +7,9 @@ import Homework8.Employee (
   Employee (Emp, empFun, empName),
   GuestList (GL),
   testCompany,
+  testCompany2,
  )
-import Homework8.Party (glCons, moreFun, treeFold)
+import Homework8.Party (glCons, maxFun, moreFun, treeFold)
 
 spec :: Spec
 spec = do
@@ -62,3 +63,34 @@ spec = do
               ]
           )
           `shouldBe` 6
+
+    describe "Exercise 3,4" $ do
+      it "maxFun" $
+        maxFun
+          ( Node
+              (Emp "Joe" 5) -- (5, 6)
+              [ Node (Emp "John" 1) [] -- (1, 0)
+              , Node (Emp "Sue" 5) [] -- (5, 0)
+              ]
+          )
+          `shouldBe` GL [Emp{empName = "John", empFun = 1}, Emp{empName = "Sue", empFun = 5}] 6
+
+      it "maxFun testCompany " $
+        maxFun testCompany
+          `shouldBe` GL
+            [ Emp{empName = "John", empFun = 1}
+            , Emp{empName = "Sue", empFun = 5}
+            , Emp{empName = "Fred", empFun = 3}
+            , Emp{empName = "Sarah", empFun = 17}
+            ]
+            26
+
+      it "maxFun testCompany2" $
+        maxFun testCompany2
+          `shouldBe` GL
+            [ Emp{empName = "John", empFun = 1}
+            , Emp{empName = "Sue", empFun = 5}
+            , Emp{empName = "Fred", empFun = 3}
+            , Emp{empName = "Sarah", empFun = 17}
+            ]
+            26
