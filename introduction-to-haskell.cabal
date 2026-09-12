@@ -74,6 +74,7 @@ library
       Homework7.Sized
       Homework7.StringBuffer
       Homework7.StringBufEditor
+      Homework7.JoinList
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -121,6 +122,7 @@ test-suite test
       TestHomework4
       TestHomework5
       TestHomework6
+      TestHomework7
 
     -- Test dependencies.
     build-depends:
