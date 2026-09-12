@@ -15,9 +15,9 @@ import Homework7.JoinList (
   takeJ,
   (+++),
  )
-import Homework7.JoinListBuffer
+import Homework7.JoinListBuffer (JoinListBuffer (JoinListBuffer))
 import Homework7.Scrabble (Score (Score), scoreLine)
-import Homework7.Sized (Size (Size), Sized (size), getSize)
+import Homework7.Sized (Size (Size))
 
 import Control.Monad (forM_)
 import Data.List (intercalate, (!?))
@@ -177,23 +177,25 @@ spec = do
             , "four"
             , "five"
             ]
-      let jl = fromString (intercalate "\n" original) :: JoinList (Score, Size) String
+      let jl = fromString (intercalate "\n" original) :: JoinListBuffer
 
       it "fromString" $
         jl
-          `shouldBe` Append
-            (Score 34, Size 5)
-            (Single (Score 3, Size 1) "one")
+          `shouldBe` JoinListBuffer
             ( Append
-                (Score 31, Size 4)
-                (Single (Score 6, Size 1) "two")
+                (Score 34, Size 5)
+                (Single (Score 3, Size 1) "one")
                 ( Append
-                    (Score 25, Size 3)
-                    (Single (Score 8, Size 1) "three")
+                    (Score 31, Size 4)
+                    (Single (Score 6, Size 1) "two")
                     ( Append
-                        (Score 17, Size 2)
-                        (Single (Score 7, Size 1) "four")
-                        (Single (Score 10, Size 1) "five")
+                        (Score 25, Size 3)
+                        (Single (Score 8, Size 1) "three")
+                        ( Append
+                            (Score 17, Size 2)
+                            (Single (Score 7, Size 1) "four")
+                            (Single (Score 10, Size 1) "five")
+                        )
                     )
                 )
             )

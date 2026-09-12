@@ -1,4 +1,4 @@
-module Homework7.JoinListBuffer where
+module Homework7.JoinListBuffer (JoinListBuffer (JoinListBuffer)) where
 
 import Homework7.Buffer
 import Homework7.JoinList (
@@ -12,17 +12,28 @@ import Homework7.JoinList (
 import Homework7.Scrabble (Score, getScore, scoreLine')
 import Homework7.Sized (Size, getSize)
 
-instance Buffer (JoinList (Score, Size) String) where
-  toString Empty = ""
-  toString (Single _ s) = s
-  toString (Append _ lhs rhs) = toString lhs ++ "\n" ++ toString rhs
+newtype JoinListBuffer = JoinListBuffer (JoinList (Score, Size) String)
+  deriving (Show, Eq)
 
-  fromString s = foldr ((+++) . scoreLine') Empty $ lines s
+inner :: JoinListBuffer -> JoinList (Score, Size) String
+inner (JoinListBuffer b) = b
 
-  line = indexJ
+instance Buffer JoinListBuffer where
+  toString b = toStringImpl $ inner b
+   where
+    toStringImpl x = case x of
+      Empty -> ""
+      (Single _ s) -> s
+      (Append _ lhs rhs) -> toStringImpl lhs ++ "\n" ++ toStringImpl rhs
 
-  replaceLine n l b = takeJ n b +++ scoreLine' l +++ dropJ (n + 1) b
+  fromString s = JoinListBuffer $ foldr ((+++) . scoreLine') Empty $ lines s
 
-  numLines b = getSize $ snd $ tag b
+  line n = indexJ n . inner
 
-  value b = getScore $ fst $ tag b
+  replaceLine n l b =
+    JoinListBuffer $
+      takeJ n (inner b) +++ scoreLine' l +++ dropJ (n + 1) (inner b)
+
+  numLines b = getSize $ snd $ tag (inner b)
+
+  value b = getScore $ fst $ tag (inner b)
