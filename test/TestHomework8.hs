@@ -1,7 +1,11 @@
 module TestHomework8 (spec) where
 
-import Homework8.Employee (Employee (Emp), GuestList (GL))
-import Homework8.Party (glCons, moreFun)
+import Homework8.Employee (
+  Employee (Emp, empFun, empName),
+  GuestList (GL),
+  testCompany,
+ )
+import Homework8.Party (glCons, moreFun, treeFold)
 import Test.Hspec
 
 spec :: Spec
@@ -27,3 +31,8 @@ spec = do
       it "moreFun a > b" $
         moreFun (GL [Emp "Two" 2] 2) (GL [Emp "One" 1] 1)
           `shouldBe` GL [Emp "Two" 2] 2
+
+    describe "Exercise 2" $ do
+      it "treeFold" $
+        treeFold (\b a -> empName b : a) [] testCompany
+          `shouldBe` ["Stan", "Bob", "Joe", "John", "Sue", "Fred", "Sarah", "Sam"]
