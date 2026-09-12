@@ -2,6 +2,7 @@ module TestHomework7 (spec) where
 
 import Homework7.JoinList (
   JoinList (Append, Empty, Single),
+  dropJ,
   indexJ,
   jlToList,
   tag,
@@ -33,28 +34,56 @@ spec = do
     describe "Exercise 2" $ do
       let singleJ = Single (1 :: Size)
       let append = (singleJ "1" +++ singleJ "2") +++ (singleJ "3" +++ singleJ "4")
-      let cases =
-            [ (0 :: Int, Empty, Nothing)
-            , (1 :: Int, Empty, Nothing)
-            , -- single
-              (0 :: Int, Single (1 :: Size) "10", Just "10")
-            , (1 :: Int, Single 1 "10", Nothing)
-            , (2 :: Int, Single 1 "10", Nothing)
-            , (0 :: Int, Single 2 "10", Nothing)
-            , -- append
-              (0 :: Int, append, Just "1")
-            , (1 :: Int, append, Just "2")
-            , (2 :: Int, append, Just "3")
-            , (3 :: Int, append, Just "4")
-            , (4 :: Int, append, Nothing)
-            , (5 :: Int, append, Nothing)
-            ]
-      forM_ cases $ \(i, tree, expected) ->
-        it
-          ( printf
-              "indexJ index=%d list=%s, expected=%s"
-              i
-              (show (jlToList tree))
-              (show expected)
-          ) $
-          indexJ i tree `shouldBe` expected
+
+      describe "indexJ" $ do
+        let cases =
+              [ (0 :: Int, Empty, Nothing)
+              , (1 :: Int, Empty, Nothing)
+              , -- single
+                (0 :: Int, Single 1 "10", Just "10")
+              , (1 :: Int, Single 1 "10", Nothing)
+              , (2 :: Int, Single 1 "10", Nothing)
+              , (0 :: Int, Single 2 "10", Nothing)
+              , -- append
+                (0 :: Int, append, Just "1")
+              , (1 :: Int, append, Just "2")
+              , (2 :: Int, append, Just "3")
+              , (3 :: Int, append, Just "4")
+              , (4 :: Int, append, Nothing)
+              , (5 :: Int, append, Nothing)
+              ]
+        forM_ cases $ \(i, tree, expected) ->
+          it
+            ( printf
+                "indexJ index=%d list=%s, expected=%s"
+                i
+                (show (jlToList tree))
+                (show expected)
+            )
+            $ indexJ i tree `shouldBe` expected
+
+      describe "dropJ" $ do
+        let cases =
+              [ (0 :: Int, Empty, [])
+              , (1 :: Int, Empty, [])
+              , -- single
+                (0 :: Int, Single 1 "10", ["10"])
+              , (1 :: Int, Single 1 "10", [])
+              , (2 :: Int, Single 1 "10", [])
+              , -- append
+                (0 :: Int, append, ["1", "2", "3", "4"])
+              , (1 :: Int, append, ["2", "3", "4"])
+              , (2 :: Int, append, ["3", "4"])
+              , (3 :: Int, append, ["4"])
+              , (4 :: Int, append, [])
+              , (5 :: Int, append, [])
+              ]
+        forM_ cases $ \(i, tree, expected) ->
+          it
+            ( printf
+                "dropJ n=%d list=%s, expected=%s"
+                i
+                (show (jlToList tree))
+                (show expected)
+            )
+            $ jlToList (dropJ i tree) `shouldBe` expected

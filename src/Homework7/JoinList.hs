@@ -1,4 +1,11 @@
-module Homework7.JoinList (JoinList (Empty, Single, Append), tag, (+++), indexJ, jlToList) where
+module Homework7.JoinList (
+  JoinList (Empty, Single, Append),
+  tag,
+  (+++),
+  indexJ,
+  jlToList,
+  dropJ,
+) where
 
 import Homework7.Sized (Sized (size), getSize)
 
@@ -38,3 +45,19 @@ jlToList :: JoinList m a -> [a]
 jlToList Empty = []
 jlToList (Single _ a) = [a]
 jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
+
+dropJ ::
+  (Sized b, Monoid b) =>
+  Int -> JoinList b a -> JoinList b a
+dropJ _ Empty = Empty
+dropJ 0 x = x
+-- we already cover the n = 0 case above, so this time n must be >= 1,
+-- which give us the empty JoinList
+dropJ _ (Single _ _) = Empty
+dropJ n x@(Append _ lhs rhs)
+  -- drop everything
+  | n >= actualSize (tag x) = Empty
+  -- only drop the left and take everything from the right
+  | n < actualSize (tag lhs) = dropJ n lhs +++ rhs
+  -- drop everything from the left and only take the right
+  | otherwise = dropJ (n - actualSize (tag lhs)) rhs
