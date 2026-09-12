@@ -1,10 +1,14 @@
-module Homework7.Scrabble (Score (Score), scoreLine) where
+module Homework7.Scrabble (Score (Score), scoreLine, scoreLine', getScore) where
 
 import Data.Char (toUpper)
 import Homework7.JoinList (JoinList (Single))
+import Homework7.Sized (Size)
 
 newtype Score = Score Int
   deriving (Eq, Ord, Show, Num)
+
+getScore :: Score -> Int
+getScore (Score s) = s
 
 instance Semigroup Score where
   (<>) = (+)
@@ -46,3 +50,6 @@ score' _ = 0
 
 scoreLine :: String -> JoinList Score String
 scoreLine s = Single (sum $ map score s) s
+
+scoreLine' :: String -> JoinList (Score, Size) String
+scoreLine' s = Single (sum $ map score s, 1) s

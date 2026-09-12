@@ -1,5 +1,11 @@
 module TestHomework7 (spec) where
 
+import Homework7.Buffer (
+  Buffer (numLines, replaceLine, value),
+  fromString,
+  line,
+  toString,
+ )
 import Homework7.JoinList (
   JoinList (Append, Empty, Single),
   dropJ,
@@ -9,10 +15,12 @@ import Homework7.JoinList (
   takeJ,
   (+++),
  )
-import Homework7.Sized (Size)
+import Homework7.JoinListBuffer
+import Homework7.Scrabble (Score (Score), scoreLine)
+import Homework7.Sized (Size (Size), Sized (size), getSize)
 
 import Control.Monad (forM_)
-import Homework7.Scrabble (Score (Score), scoreLine)
+import Data.List (intercalate, (!?))
 import Test.Hspec
 import Text.Printf (printf)
 
@@ -160,3 +168,52 @@ spec = do
       it "scoreLine" $
         scoreLine "yay" +++ scoreLine "haskell!"
           `shouldBe` Append (Score 23) (Single (Score 9) "yay") (Single (Score 14) "haskell!")
+
+    describe "Exercise 4" $ do
+      let original =
+            [ "one"
+            , "two"
+            , "three"
+            , "four"
+            , "five"
+            ]
+      let jl = fromString (intercalate "\n" original) :: JoinList (Score, Size) String
+
+      it "fromString" $
+        jl
+          `shouldBe` Append
+            (Score 34, Size 5)
+            (Single (Score 3, Size 1) "one")
+            ( Append
+                (Score 31, Size 4)
+                (Single (Score 6, Size 1) "two")
+                ( Append
+                    (Score 25, Size 3)
+                    (Single (Score 8, Size 1) "three")
+                    ( Append
+                        (Score 17, Size 2)
+                        (Single (Score 7, Size 1) "four")
+                        (Single (Score 10, Size 1) "five")
+                    )
+                )
+            )
+
+      it "toString" $
+        toString jl
+          `shouldBe` "one\ntwo\nthree\nfour\nfive"
+
+      forM_ [0 .. 8 :: Int] $ \i ->
+        it (printf "line i=%d" i) $ do
+          line i jl `shouldBe` (original !? i)
+
+      forM_ [0 .. 8 :: Int] $ \i ->
+        it (printf "replaceLine i=%d, with `replaced`" i) $
+          do
+            let replaced = take i original ++ ["replaced"] ++ drop (i + 1) original
+            toString (replaceLine i "replaced" jl) `shouldBe` intercalate "\n" replaced
+
+      it "numLines" $
+        numLines jl `shouldBe` 5
+
+      it "values" $
+        value jl `shouldBe` 34

@@ -76,6 +76,8 @@ library
       Homework7.StringBufEditor
       Homework7.JoinList
       Homework7.Scrabble
+      Homework7.JoinListBuffer
+      Homework7.JoinListBufEditor
 
     -- Modules included in this library but not exported.
     -- other-modules:
