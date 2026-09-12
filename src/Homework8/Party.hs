@@ -28,3 +28,10 @@ treeFold ::
   b
 treeFold f z (Node root []) = f root [z]
 treeFold f z (Node root children) = f root (map (treeFold f z) children)
+
+-- a guess list with only one employee
+only :: Employee -> GuestList
+only e = glCons e mempty
+
+nextLevel :: Employee -> [(GuestList, GuestList)] -> (GuestList, GuestList)
+nextLevel boss members = (only boss, foldMap (uncurry moreFun) members)
