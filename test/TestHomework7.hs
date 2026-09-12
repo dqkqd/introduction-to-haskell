@@ -6,6 +6,7 @@ import Homework7.JoinList (
   indexJ,
   jlToList,
   tag,
+  takeJ,
   (+++),
  )
 import Homework7.Sized (Size)
@@ -107,3 +108,29 @@ spec = do
                 (show expected)
             )
             $ jlToList (dropJ i tree) `shouldBe` expected
+
+      describe "takeJ" $ do
+        let cases =
+              [ (0 :: Int, Empty, [])
+              , (1 :: Int, Empty, [])
+              , -- single
+                (0 :: Int, Single 1 "10", [])
+              , (1 :: Int, Single 1 "10", ["10"])
+              , (2 :: Int, Single 1 "10", ["10"])
+              , -- append
+                (0 :: Int, append, [])
+              , (1 :: Int, append, ["1"])
+              , (2 :: Int, append, ["1", "2"])
+              , (3 :: Int, append, ["1", "2", "3"])
+              , (4 :: Int, append, ["1", "2", "3", "4"])
+              , (5 :: Int, append, ["1", "2", "3", "4"])
+              ]
+        forM_ cases $ \(i, tree, expected) ->
+          it
+            ( printf
+                "takeJ n=%d list=%s, expected=%s"
+                i
+                (show (jlToList tree))
+                (show expected)
+            )
+            $ jlToList (takeJ i tree) `shouldBe` expected

@@ -5,6 +5,7 @@ module Homework7.JoinList (
   indexJ,
   jlToList,
   dropJ,
+  takeJ,
 ) where
 
 import Homework7.Sized (Sized (size), getSize)
@@ -63,3 +64,19 @@ dropJ n x@(Append _ lhs rhs)
   | n < actualSize (tag lhs) = dropJ n lhs +++ rhs
   -- drop everything from the left and only take the right
   | otherwise = dropJ (n - actualSize (tag lhs)) rhs
+
+takeJ ::
+  (Sized b, Monoid b) =>
+  Int -> JoinList b a -> JoinList b a
+takeJ _ Empty = Empty
+takeJ 0 _ = Empty
+-- we already cover the n = 0 case above, so this time n must be >= 1,
+-- which give us the empty JoinList
+takeJ _ x@(Single _ _) = x
+takeJ n x@(Append _ lhs rhs)
+  -- take everything
+  | n >= actualSize (tag x) = x
+  -- only take the left
+  | n < actualSize (tag lhs) = takeJ n lhs
+  -- take all the left and combine the remaining with the right
+  | otherwise = lhs +++ takeJ (n - actualSize (tag lhs)) rhs
