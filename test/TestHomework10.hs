@@ -10,6 +10,7 @@ import Homework10.AParser (
   abParser,
   abParser_,
   char,
+  intOrUppercase,
   intPair,
   posInt,
   runParser,
@@ -85,3 +86,13 @@ spec = do
         $ \(input, expected) ->
           it ("<|> " ++ input) $
             runParser (char 'a' <|> char 'b') input `shouldBe` expected
+
+    describe "Exercise 5" $ do
+      forM_
+        [ ("342abcd", Just ((), "abcd"))
+        , ("XYZ", Just ((), "YZ"))
+        , ("foo", Nothing)
+        ]
+        $ \(input, expected) ->
+          it ("<|> " ++ input) $
+            runParser intOrUppercase input `shouldBe` expected
