@@ -211,3 +211,25 @@ executable homework8
 
     -- Base language which the package is written in.
     default-language: GHC2024
+
+executable homework11
+    -- Import common warning flags.
+    import:           warnings
+
+    -- Modules included in this library but not exported.
+    other-modules:
+      -- Homework8.Employee
+      -- Homework8.Party
+
+    -- Other library packages from which modules are imported.
+    build-depends:
+      base ^>=4.20.2.0,
+      containers,
+      mtl
+
+    -- Directories containing source files.
+    hs-source-dirs:   src
+    main-is:          Homework11/Example.hs
+
+    -- Base language which the package is written in.
+    default-language: GHC2024
