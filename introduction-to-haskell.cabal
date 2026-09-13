@@ -137,6 +137,7 @@ test-suite test
         base ^>=4.20.2.0,
         introduction-to-haskell,
         containers,
+        raw-strings-qq,
         hspec
 
 test-suite doctests

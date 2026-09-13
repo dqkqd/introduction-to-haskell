@@ -49,3 +49,11 @@ data SExpr
   = A Atom
   | Comb [SExpr]
   deriving (Show)
+
+parseSExpr :: Parser SExpr
+parseSExpr =
+  spaces
+    *> ((A <$> atom) <|> (Comb <$> parens))
+ where
+  parens = char '(' *> spaces *> oneOrMore parseSExpr <* spaces <* char ')'
+  atom = (N <$> posInt) <|> (I <$> ident)
