@@ -2,11 +2,14 @@ module TestHomework10 (spec) where
 
 import Test.Hspec
 
+import Control.Applicative (Alternative ((<|>)))
 import Control.Monad (forM_)
+
 import Homework10.AParser (
   Parser (Parser),
   abParser,
   abParser_,
+  char,
   intPair,
   posInt,
   runParser,
@@ -71,3 +74,14 @@ spec = do
         $ \(input, expected) ->
           it ("intPair" ++ input) $
             runParser intPair input `shouldBe` expected
+
+    describe "Exercise 4" $ do
+      forM_
+        [ ("ab", Just ('a', "b"))
+        , ("ax", Just ('a', "x"))
+        , ("bx", Just ('b', "x"))
+        , ("x", Nothing)
+        ]
+        $ \(input, expected) ->
+          it ("<|> " ++ input) $
+            runParser (char 'a' <|> char 'b') input `shouldBe` expected

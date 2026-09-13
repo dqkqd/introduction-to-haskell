@@ -4,6 +4,7 @@
 
 module Homework10.AParser where
 
+import Control.Applicative (Alternative (empty, (<|>)))
 import Control.Monad (void)
 import Data.Char
 
@@ -79,3 +80,7 @@ abParser_ = void abParser
 
 intPair :: Parser [Integer]
 intPair = (\x _ y -> [x, y]) <$> posInt <*> char ' ' <*> posInt
+
+instance Alternative Parser where
+  empty = Parser (const Nothing)
+  Parser fa <|> Parser fb = Parser (\s -> fa s <|> fb s)
