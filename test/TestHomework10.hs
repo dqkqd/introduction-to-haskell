@@ -7,6 +7,7 @@ import Homework10.AParser (
   Parser (Parser),
   abParser,
   abParser_,
+  intPair,
   posInt,
   runParser,
  )
@@ -60,3 +61,13 @@ spec = do
         $ \(input, expected) ->
           it ("abParser_" ++ input) $
             runParser abParser_ input `shouldBe` expected
+
+      forM_
+        [ ("12 34", Just ([12, 34], ""))
+        , ("12 34 56", Just ([12, 34], " 56"))
+        , ("12", Nothing)
+        , ("", Nothing)
+        ]
+        $ \(input, expected) ->
+          it ("intPair" ++ input) $
+            runParser intPair input `shouldBe` expected
