@@ -3,7 +3,13 @@ module TestHomework10 (spec) where
 import Test.Hspec
 
 import Control.Monad (forM_)
-import Homework10.AParser (Parser (Parser), abParser, posInt, runParser)
+import Homework10.AParser (
+  Parser (Parser),
+  abParser,
+  abParser_,
+  posInt,
+  runParser,
+ )
 
 type Name = String
 data Employee = Emp {name :: Name, phone :: String} deriving (Show, Eq)
@@ -45,3 +51,12 @@ spec = do
         $ \(input, expected) ->
           it ("abParser" ++ input) $
             runParser abParser input `shouldBe` expected
+
+      forM_
+        [ ("abcdef", Just ((), "cdef"))
+        , ("aebcdf", Nothing)
+        , ("", Nothing)
+        ]
+        $ \(input, expected) ->
+          it ("abParser_" ++ input) $
+            runParser abParser_ input `shouldBe` expected
