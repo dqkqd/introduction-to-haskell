@@ -4,8 +4,7 @@
 
 module Homework10.AParser where
 
-import Control.Applicative
-
+import Control.Monad (void)
 import Data.Char
 
 -- A parser for a value of type a is a function which takes a String
@@ -71,3 +70,9 @@ instance Applicative Parser where
     do
       (f', rf) <- f s
       first f' <$> fa rf
+
+abParser :: Parser (Char, Char)
+abParser = (,) <$> char 'a' <*> char 'b'
+
+abParser_ :: Parser ()
+abParser_ = void abParser
