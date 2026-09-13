@@ -5,6 +5,7 @@
 module Homework11.SExpr where
 
 import Control.Applicative
+import Data.Char (isAlpha, isAlphaNum, isSpace)
 import Homework11.AParser
 
 ------------------------------------------------------------
@@ -22,10 +23,13 @@ oneOrMore p = (:) <$> p <*> zeroOrMore p
 ------------------------------------------------------------
 
 spaces :: Parser String
-spaces = undefined
+spaces = zeroOrMore (satisfy isSpace)
 
 ident :: Parser String
-ident = undefined
+ident =
+  (++)
+    <$> oneOrMore (satisfy isAlpha)
+    <*> zeroOrMore (satisfy isAlphaNum)
 
 ------------------------------------------------------------
 --  3. Parsing S-expressions
