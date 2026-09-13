@@ -78,6 +78,8 @@ library
       Homework8.Party
       Homework8.Employee
       Homework10.AParser
+      Homework11.AParser
+      Homework11.SExpr
 
     -- Modules included in this library but not exported.
     -- other-modules:
