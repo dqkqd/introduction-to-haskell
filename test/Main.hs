@@ -1,5 +1,6 @@
 import Test.Hspec
 import TestHomework1 qualified
+import TestHomework10 qualified
 import TestHomework2 qualified
 import TestHomework3 qualified
 import TestHomework4 qualified
@@ -18,3 +19,4 @@ main = hspec $ do
   TestHomework6.spec
   TestHomework7.spec
   TestHomework8.spec
+  TestHomework10.spec

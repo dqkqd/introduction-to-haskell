@@ -127,6 +127,7 @@ test-suite test
       TestHomework6
       TestHomework7
       TestHomework8
+      TestHomework10
 
     -- Test dependencies.
     build-depends:
