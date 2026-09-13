@@ -80,6 +80,7 @@ library
       Homework10.AParser
       Homework11.AParser
       Homework11.SExpr
+      Homework12.Risk
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -91,6 +92,7 @@ library
     build-depends:
       base ^>=4.20.2.0,
       containers,
+      MonadRandom,
       mtl
 
     -- Directories containing source files.
