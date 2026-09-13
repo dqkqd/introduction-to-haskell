@@ -64,3 +64,13 @@ first f (a, c) = (f a, c)
 
 instance Functor Parser where
   fmap f (Parser fa) = Parser $ fmap (first f) . fa
+
+instance Applicative Parser where
+  pure a = Parser (\s -> Just (a, s))
+  Parser f <*> Parser fa = Parser fb
+   where
+    fb s = case f s of
+      Just (f', rf) -> case fa rf of
+        Just (a, ra) -> Just (f' a, ra)
+        Nothing -> Nothing
+      Nothing -> Nothing
