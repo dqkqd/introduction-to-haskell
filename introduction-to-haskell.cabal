@@ -239,3 +239,25 @@ executable homework11
 
     -- Base language which the package is written in.
     default-language: GHC2024
+
+executable homework12
+    -- Import common warning flags.
+    import:           warnings
+
+    -- Modules included in this library but not exported.
+    other-modules:
+      Homework12.Risk
+
+    -- Other library packages from which modules are imported.
+    build-depends:
+      base ^>=4.20.2.0,
+      containers,
+      MonadRandom,
+      mtl
+
+    -- Directories containing source files.
+    hs-source-dirs:   src
+    main-is:          Homework12/Main.hs
+
+    -- Base language which the package is written in.
+    default-language: GHC2024
